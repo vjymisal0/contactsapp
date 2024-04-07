@@ -11,9 +11,16 @@ const App = () => {
       try {
         const contactsRef = collection(db, "contacts");
         const contactsSnapshot = await getDocs(contactsRef);
+        const contactLists = contactsSnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
         console.log(contactsSnapshot);
       } catch (error) {}
     };
+    getContacts();
   });
   return (
     <div className="mx-auto max-w-[370px] px-4">
