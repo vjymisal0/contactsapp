@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./components/Navbar";
 const App = () => {
   return (
-    <div className="h-[60px] bg-white m-4 rounded ">
+    <div className="mx-auto max-w-[370px]">
       <Navbar />
     </div>
   );
