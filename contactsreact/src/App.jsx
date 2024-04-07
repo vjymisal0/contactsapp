@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import { FiSearch } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./config/firebase"; // Import your Firebase instance
+import { db } from "./config/firebase";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -20,7 +20,7 @@ const App = () => {
           };
         });
         setContacts(contactLists); // Set contacts state with fetched data
-        console.log("Contacts fetched successfully:", contactLists);
+        
       } catch (error) {
         console.error("Error fetching contacts:", error);
       }
