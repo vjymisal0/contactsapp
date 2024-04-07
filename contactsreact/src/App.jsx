@@ -2,10 +2,12 @@ import { React, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { FiSearch } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { collection } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./config/firebase"; // Import your Firebase instance
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
+
   useEffect(() => {
     const getContacts = async () => {
       try {
@@ -17,11 +19,15 @@ const App = () => {
             ...doc.data(),
           };
         });
-        console.log(contactsSnapshot);
-      } catch (error) {}
+        setContacts(contactLists); // Set contacts state with fetched data
+        console.log("Contacts fetched successfully:", contactLists);
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
     };
     getContacts();
-  });
+  }, []); // Empty dependency array means this effect runs once after the first render
+
   return (
     <div className="mx-auto max-w-[370px] px-4">
       <Navbar />
@@ -33,9 +39,16 @@ const App = () => {
             className="h-10 flex-grow bg-transparent  border-white rounded-md border text-white pl-10"
           />
         </div>
-
         <AiFillPlusCircle className="text-white text-5xl cursor-pointer" />
       </div>
+      {/* Display contacts */}
+      <ul>
+        {contacts.map((contact) => (
+          <li key={contact.id}>
+            {contact.name} - {contact.email}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
