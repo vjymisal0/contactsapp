@@ -20,7 +20,6 @@ const App = () => {
           };
         });
         setContacts(contactLists); // Set contacts state with fetched data
-        
       } catch (error) {
         console.error("Error fetching contacts:", error);
       }
