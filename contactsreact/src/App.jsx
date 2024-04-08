@@ -5,9 +5,17 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
+import Modal from "./components/Modal";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
+  const [isOpen, setOpen] = useState(false);
+  const onOpen = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const getContacts = async () => {
@@ -27,27 +35,35 @@ const App = () => {
       }
     };
     getContacts();
-  }, []); // Empty dependency array means this effect runs once after the first render
+  }, []);
 
   return (
-    <div className="mx-auto max-w-[370px] px-4">
-      <Navbar />
-      <div className="flex gap-2">
-        <div className="flex flex-grow items-center relative">
-          <FiSearch className="text-white text-3xl absolute ml-1" />
-          <input
-            type="text"
-            className="h-10 flex-grow bg-transparent  border-white rounded-md border text-white pl-10"
+    <>
+      <div className="mx-auto max-w-[370px] px-4">
+        <Navbar />
+        <div className="flex gap-2">
+          <div className="flex flex-grow items-center relative">
+            <FiSearch className="text-white text-3xl absolute ml-1" />
+            <input
+              type="text"
+              className="h-10 flex-grow bg-transparent  border-white rounded-md border text-white pl-10"
+            />
+          </div>
+          <AiFillPlusCircle
+            onClick={isOpen}
+            className="text-white text-5xl cursor-pointer"
           />
         </div>
-        <AiFillPlusCircle className="text-white text-5xl cursor-pointer" />
+        <div className="mt-4 gap-3 flex flex-col">
+          {contacts.map((contact) => (
+            <ContactCard key={contact.id} contact={contact} />
+          ))}
+        </div>
       </div>
-      <div className="mt-4">
-        {contacts.map((contact) => (
-          <ContactCard />
-        ))}
-      </div>
-    </div>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        Hi
+      </Modal>
+    </>
   );
 };
 
