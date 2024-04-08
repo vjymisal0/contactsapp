@@ -46,17 +46,20 @@ const App = () => {
       </div>
       <div>
         {contacts.map((contact) => (
-          <div key={contact.id} className="bg-gray rounded-xl p-2">
-            <div className="flex">
-              <HiOutlineUserCircle className="text-white text-4xl" />
-              <div className="text-white">
-                <div className="">
-                  <h2 className="">{contact.name}</h2>
-                  <p className="">{contact.email}</p>
-                </div>
+          <div
+            key={contact.id}
+            className="bg-light_cyan rounded-lg p-2 flex justify-around items-center"
+          >
+            <div className="flex gap-1">
+              <HiOutlineUserCircle className="text-black text-4xl" />
+
+              <div className="">
+                <h2 className="font-medium">{contact.name}</h2>
+                <p className="text-sm">{contact.email}</p>
               </div>
             </div>
-            <div>
+
+            <div className="flex">
               <RiEditCircleLine />
 
               <IoMdTrash />
