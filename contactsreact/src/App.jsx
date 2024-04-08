@@ -4,9 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
-import { HiOutlineUserCircle } from "react-icons/hi";
-import { RiEditCircleLine } from "react-icons/ri";
-import { IoMdTrash } from "react-icons/io";
+import ContactCard from "./components/ContactCard";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -44,27 +42,9 @@ const App = () => {
         </div>
         <AiFillPlusCircle className="text-white text-5xl cursor-pointer" />
       </div>
-      <div>
+      <div className="mt-4">
         {contacts.map((contact) => (
-          <div
-            key={contact.id}
-            className="bg-light_cyan rounded-lg p-2 flex justify-around items-center"
-          >
-            <div className="flex gap-1">
-              <HiOutlineUserCircle className="text-black text-4xl" />
-
-              <div className="">
-                <h2 className="font-medium">{contact.name}</h2>
-                <p className="text-sm">{contact.email}</p>
-              </div>
-            </div>
-
-            <div className="flex">
-              <RiEditCircleLine />
-
-              <IoMdTrash />
-            </div>
-          </div>
+          <ContactCard />
         ))}
       </div>
     </div>
