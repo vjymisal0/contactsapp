@@ -50,7 +50,7 @@ const App = () => {
             />
           </div>
           <AiFillPlusCircle
-            onClick={isOpen}
+            onClick={onOpen}
             className="text-white text-5xl cursor-pointer"
           />
         </div>
