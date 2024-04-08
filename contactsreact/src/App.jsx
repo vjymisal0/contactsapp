@@ -5,7 +5,7 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
-import Modal from "./components/Modal";
+import AddAndUpdate from "./components/AddAndUpdate";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -60,9 +60,7 @@ const App = () => {
           ))}
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        Hi
-      </Modal>
+      <AddAndUpdate onClose={onClose} isOpen={isOpen} />
     </>
   );
 };
