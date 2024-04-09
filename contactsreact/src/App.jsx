@@ -9,13 +9,7 @@ import AddAndUpdate from "./components/AddAndUpdate";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
-  const [isOpen, setOpen] = useState(false);
-  const onOpen = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
+  const { isOpen, onClose, onOpen } = UseDisclous();
 
   useEffect(() => {
     const getContacts = async () => {

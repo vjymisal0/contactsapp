@@ -5,6 +5,7 @@ import { IoMdTrash } from "react-icons/io";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import AddAndUpdate from "./AddAndUpdate";
+import UseDisclous from "../hooks/UseDisclous";
 
 const ContactCard = ({ contact }) => {
   const deleteContact = async (id) => {
@@ -14,6 +15,7 @@ const ContactCard = ({ contact }) => {
       console.log(error);
     }
   };
+  const { isOpen, onClose, onOpen } = UseDisclous();
 
   return (
     <>
