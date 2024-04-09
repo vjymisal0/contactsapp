@@ -33,15 +33,15 @@ const ContactCard = ({ contact }) => {
         </div>
 
         <div className="flex text-3xl">
-          <RiEditCircleLine />
+          <RiEditCircleLine onClick={onOpen} className="cursor-pointer" />
 
           <IoMdTrash
-            className="text-red"
+            className="text-red cursor-pointer"
             onClick={() => deleteContact(contact.id)}
           />
         </div>
       </div>
-      <AddAndUpdate />
+      <AddAndUpdate isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import AddAndUpdate from "./components/AddAndUpdate";
+import UseDisclous from "./hooks/UseDisclous";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
