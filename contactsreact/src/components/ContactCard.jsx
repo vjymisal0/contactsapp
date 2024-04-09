@@ -7,6 +7,7 @@ import { db } from "../config/firebase";
 import AddAndUpdate from "./AddAndUpdate";
 import UseDisclous from "../hooks/UseDisclous";
 
+
 const ContactCard = ({ contact }) => {
   const deleteContact = async (id) => {
     try {
@@ -41,7 +42,7 @@ const ContactCard = ({ contact }) => {
           />
         </div>
       </div>
-      <AddAndUpdate isOpen={isOpen} onClose={onClose} />
+      <AddAndUpdate contact={contact} isUpdate isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

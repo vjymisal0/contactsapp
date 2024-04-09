@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { FiSearch } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import AddAndUpdate from "./components/AddAndUpdate";
@@ -17,6 +17,17 @@ const App = () => {
       try {
         const contactsRef = collection(db, "contacts");
         const contactsSnapshot = await getDocs(contactsRef);
+        onSnapshot(contactsRef, (snapshot) => {
+          const contactLists = snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          });
+          setContacts(contactLists); // Set contacts state with fetched data
+          console.log("Contacts fetched successfully!", contactLists);
+          return contactLists;
+        });
         const contactLists = contactsSnapshot.docs.map((doc) => {
           return {
             id: doc.id,

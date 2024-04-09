@@ -1,10 +1,10 @@
 import React from "react";
 import { Form, Formik, Field } from "formik";
 import Modal from "./Modal";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-const AddAndUpdate = ({ isOpen, onClose }) => {
+const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
   const addContact = async (contact) => {
     try {
       const contactRef = collection(db, "contacts");
@@ -14,13 +14,28 @@ const AddAndUpdate = ({ isOpen, onClose }) => {
     }
   };
 
+  const updateContact = async (contact, id) => {
+    try {
+      const contactRef = doc(db, "contacts", id);
+      await updateDoc(contactRef, contact);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
         <Formik
-          initialValues={{ name: "", email: "" }}
+          initialValues={
+            isUpdate
+              ? { name: contact.name, email: contact.email }
+              : {
+                  name: "",
+                  email: "",
+                }
+          }
           onSubmit={(values) => {
-            addContact(values);
+            isUpdate ? updateContact(values, contact.id) : addContact(values);
           }}
         >
           <Form className="flex flex-col gap-4">
@@ -38,8 +53,8 @@ const AddAndUpdate = ({ isOpen, onClose }) => {
                 className="border h-10  text-black rounded-lg"
               />
             </div>
-            <button className="bg-blue px-3 py-1 border rounded-lg self-end">
-              Add Contact
+            <button className="bg-blue px-3 py-1.5 border rounded-lg self-end">
+              {isUpdate ? "Update" : "Add"} Contact
             </button>
           </Form>
         </Formik>
