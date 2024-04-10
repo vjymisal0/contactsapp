@@ -28,6 +28,20 @@ const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
       console.log(error);
     }
   };
+  const filterContacts=(e)=>{
+    const value=e.target.value;
+    onSnapshot(contactsRef, (snapshot) => {
+      const contactLists = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+      setContacts(contactLists); // Set contacts state with fetched data
+      console.log("Contacts fetched successfully!", contactLists);
+      return contactLists;
+    });
+  }
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>

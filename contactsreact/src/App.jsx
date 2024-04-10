@@ -68,7 +68,7 @@ const App = () => {
         </div>
       </div>
       <AddAndUpdate onClose={onClose} isOpen={isOpen} />
-      <ToastContainer position="bottom-center     F" />
+      <ToastContainer position="bottom-center" />
     </>
   );
 };
