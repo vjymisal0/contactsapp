@@ -7,6 +7,7 @@ import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import AddAndUpdate from "./components/AddAndUpdate";
 import UseDisclous from "./hooks/UseDisclous";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -67,6 +68,7 @@ const App = () => {
         </div>
       </div>
       <AddAndUpdate onClose={onClose} isOpen={isOpen} />
+      <ToastContainer position="bottom-center     F" />
     </>
   );
 };
