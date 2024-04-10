@@ -5,6 +5,11 @@ import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as Yup from "yup";
+const contactSchemaValidation = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+});
 
 const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
   const addContact = async (contact) => {
@@ -28,20 +33,7 @@ const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
       console.log(error);
     }
   };
-  const filterContacts=(e)=>{
-    const value=e.target.value;
-    onSnapshot(contactsRef, (snapshot) => {
-      const contactLists = snapshot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-        };
-      });
-      setContacts(contactLists); // Set contacts state with fetched data
-      console.log("Contacts fetched successfully!", contactLists);
-      return contactLists;
-    });
-  }
+
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>

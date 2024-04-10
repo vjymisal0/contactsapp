@@ -8,10 +8,28 @@ import ContactCard from "./components/ContactCard";
 import AddAndUpdate from "./components/AddAndUpdate";
 import UseDisclous from "./hooks/UseDisclous";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
   const { isOpen, onClose, onOpen } = UseDisclous();
+  const filterContacts = (e) => {
+    const value = e.target.value;
+    const contactsRef = collection(db, "contacts");
+    onSnapshot(contactsRef, (snapshot) => {
+      const contactLists = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+      const filterContacts = contactLists.filter((contact) =>
+        contact.name.toLowerCase().includes(value.toLowerCase()),
+      );
+      setContacts(filterContacts);
+      return filterContacts;
+    });
+  };
 
   useEffect(() => {
     const getContacts = async () => {
@@ -52,6 +70,7 @@ const App = () => {
           <div className="flex flex-grow items-center relative">
             <FiSearch className="text-white text-3xl absolute ml-1" />
             <input
+              onChange={filterContacts}
               type="text"
               className="h-10 flex-grow bg-transparent  border-white rounded-md border text-white pl-10"
             />
