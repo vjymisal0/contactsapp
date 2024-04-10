@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Formik, Field } from "formik";
+import { Form, Formik, Field, ErrorMessage } from "formik";
 import Modal from "./Modal";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
@@ -7,8 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 const contactSchemaValidation = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  name: Yup.string().required("*Name is required"),
+  email: Yup.string().email("Invalid email").required("*Email is required"),
 });
 
 const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
@@ -58,6 +58,9 @@ const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
                 name="name"
                 className="border h-10 text-black rounded-lg"
               />
+              <div className=" text-cyan-300">
+                <ErrorMessage name="name" />
+              </div>
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="email">Email</label>
@@ -65,6 +68,9 @@ const AddAndUpdate = ({ isOpen, onClose, isUpdate, contact }) => {
                 name="email"
                 className="border h-10  text-black rounded-lg"
               />
+              <div className="text-cyan-300 ">
+                <ErrorMessage name="email" />
+              </div>
             </div>
             <button className="bg-blue px-3 py-1.5 border rounded-lg self-end">
               {isUpdate ? "Update" : "Add"} Contact
